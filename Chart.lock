@@ -1,0 +1,7 @@
+dependencies:
+
+- name: snofi-backend
+  repository: file://./snofi-backend/
+  version: 0.1.0
+digest: sha256:ed2e0e3e3dba3bbb88a4bde8994686505d0c84b21808ea3ad2762255e3a01dd0
+generated: "2024-01-28T21:39:06.021000303+01:00"

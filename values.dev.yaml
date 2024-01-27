@@ -1,0 +1,27 @@
+global:
+  images:
+    snofi_microservice:
+      replicaCount: 1
+      app:
+        name: snofi-backend
+        imageName: snofi-backend
+        imageTag: "latest"
+    # cms_starpi_service:
+    #   replicaCount: 1
+    #   app:
+    #     name: cms-starpi
+    #     imageName: service-strapi-cms
+    #     imageTag: "latest"
+
+    # web_service:
+    #   replicaCount: 1
+    #   app:
+    #     name: web
+    #     imageName: lambdax-web
+    #     imageTag: "latest"
+
+  autoscaling: false
+  imagePullSecretName: regcred
+  project: dev
+  registryName: shubham078
+  PwdEncryptKey: 4c3b862e2f8d3gvh

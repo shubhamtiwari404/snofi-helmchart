@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.app.name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app.name }}
+    spec:
+      containers:
+        - name: {{ .Values.app.name }}
+          image: "{{ .Values.global.registryName }}/{{ .Values.global.images.snofi_microservice.app.imageName }}:{{ .Values.global.images.snofi_microservice.app.imageTag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.app.pullPolicy }}
+          resources:
+            requests:
+              cpu: "{{ .Values.resources.requests.cpu }}"
+              memory: "{{ .Values.resources.requests.memory }}"
+            limits:
+              cpu: "{{ .Values.resources.limits.cpu }}"
+              memory: "{{ .Values.resources.limits.memory }}"
+          ports:
+            - containerPort: {{ .Values.app.containerPort }}
+          volumeMounts:
+            {{- range .Values.volumeMounts }}
+            - name: {{ .name }}
+              mountPath: {{ .mountPath }}
+            {{- end }}
+            # need in case of private repo
+    #   imagePullSecrets:
+    #     - name: {{ .Values.global.imagePullSecretName }} 
+      volumes:
+      - name: snofi-backend-volume
+        persistentVolumeClaim:
+          claimName: pvc-snofi-backend-logs-{{ .Values.global.project }}
